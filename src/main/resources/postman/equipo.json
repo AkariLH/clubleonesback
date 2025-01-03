@@ -1,0 +1,121 @@
+{
+	"info": {
+		"_postman_id": "294b2ddd-e720-46eb-bcc0-4847cf485d90",
+		"name": "Equipo Controller Services",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40113448"
+	},
+	"item": [
+		{
+			"name": "Get All Equipos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/equipos",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"equipos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Equipo By ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/equipos/3",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"equipos",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Equipo",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nombreEquipo\": \"Equipo dinamita\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/equipos",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"equipos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Equipo",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nombreEquipo\": \"Equipo antidinamita\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/equipos/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"equipos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Equipo",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/equipos/2",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"equipos",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

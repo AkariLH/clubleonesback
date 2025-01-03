@@ -1,0 +1,127 @@
+{
+	"info": {
+		"_postman_id": "3de51674-a423-48e9-b578-0707622eafa3",
+		"name": "Atleta Controller Services",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40113448"
+	},
+	"item": [
+		{
+			"name": "Get All Atletas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/atletas",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"atletas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Atleta By ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/atletas/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"atletas",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Atleta",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nombre\": \"Atleta1\",\n  \"apellidoPaterno\": \"ats1\",\n  \"apellidoMaterno\": \"smith1\",\n  \"fechaDeNacimiento\": \"1990-01-01\",\n  \"sexo\": \"FEMENINO\",\n  \"correo\": \"atleta1@example.com\",\n  \"contrasena\": \"micontrasena\",\n  \"peso\": 60.5,\n  \"estatura\": 1.65,\n  \"equipoId\": 1\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/atletas",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"atletas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Atleta",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"idAtleta\": 1,\n  \"nombre\": \"Jane Updated\",\n  \"apellidoPaterno\": \"Updated\",\n  \"apellidoMaterno\": \"Smith\",\n  \"fechaDeNacimiento\": \"1990-01-01\",\n  \"sexo\": \"FEMENINO\",\n  \"correo\": \"janeupdated@example.com\",\n  \"contrasena\": \"contraupdated\",\n  \"peso\": 58.0,\n  \"estatura\": 1.65,\n  \"equipoId\": 1\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/atletas/:id",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"atletas",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Atleta",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/atletas/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"atletas",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
