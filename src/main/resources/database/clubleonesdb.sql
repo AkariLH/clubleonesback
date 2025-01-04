@@ -214,22 +214,6 @@ AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8mb3;
 
 
--- -----------------------------------------------------
--- Table `club2`.`tipoevento`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `club2`.`tipoevento` (
-  `id_tipoevento` INT NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(20) NOT NULL,
-  `descripcion` VARCHAR(100) NOT NULL,
-  `modalidad` ENUM('EQUIPO', 'INDIVIDUAL', 'RELEVOS') NULL DEFAULT NULL,
-  `unidades` JSON NULL DEFAULT NULL,
-  `categoria` ENUM('FEMENIL', 'VARONIL') NULL DEFAULT NULL,
-  `participantes` INT NULL DEFAULT NULL,
-  PRIMARY KEY (`id_tipoevento`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
-
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

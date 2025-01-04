@@ -1,6 +1,8 @@
 package com.akuzu.clubleones.entity;
 
+import com.akuzu.clubleones.util.Categoria;
 import com.akuzu.clubleones.util.EstadoEvento;
+import com.akuzu.clubleones.util.Modalidad;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -39,19 +41,16 @@ public class Evento {
     private String horario;
 
     @Column(nullable = false, length = 50)
-    private String modalidades;
+    private Modalidad modalidades;
 
     @Column(nullable = false, length = 50)
-    private String categoria;
+    private Categoria categoria;
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal costo;
 
     @Column(nullable = false, columnDefinition = "TEXT")
-    private String requisitos;
-
-    @Column(nullable = false, columnDefinition = "TEXT")
-    private String reglas;
+    private String detalles;
 
     @ManyToOne
     @JoinColumn(name = "tipoevento")

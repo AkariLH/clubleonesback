@@ -26,11 +26,13 @@ public class ActividadService {
         return actividadRepository.save(actividad);
     }
 
-    public Actividad updateActividad(Integer id, Actividad newActividad) {
+    public Actividad updateActividad(Integer id, final Actividad newActividad) {
         return actividadRepository.findById(id).map(actividad -> {
             actividad.setNombre(newActividad.getNombre());
             actividad.setInstalacion(newActividad.getInstalacion());
-            actividad.setDuracion(newActividad.getDuracion());
+            actividad.setDia(newActividad.getDia());
+            actividad.setHoraInicio(newActividad.getHoraInicio());
+            actividad.setHoraFin(newActividad.getHoraFin());
             return actividadRepository.save(actividad);
         }).orElseThrow(() -> new RuntimeException("Actividad not found"));
     }

@@ -1,5 +1,5 @@
 package com.akuzu.clubleones.util;
 
 public enum Categoria {
-    FEMENIL, VARONIL;
+    FEMENIL, VARONIL, INFANTIL, MIXTO;
 }

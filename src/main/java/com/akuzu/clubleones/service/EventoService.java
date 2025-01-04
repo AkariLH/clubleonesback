@@ -70,8 +70,7 @@ public class EventoService {
             evento.setModalidades(newEvento.getModalidades());
             evento.setCategoria(newEvento.getCategoria());
             evento.setCosto(newEvento.getCosto());
-            evento.setRequisitos(newEvento.getRequisitos());
-            evento.setReglas(newEvento.getReglas());
+            evento.setDetalles(newEvento.getDetalles());
             evento.setTipoEvento(newEvento.getTipoEvento());
             evento.setEntrenador(newEvento.getEntrenador());
             evento.setAdministrador(newEvento.getAdministrador());
