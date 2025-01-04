@@ -1,0 +1,133 @@
+{
+	"info": {
+		"_postman_id": "0d1de49b-1aa8-4f91-a4a1-8fd4d94f8a35",
+		"name": "TipoEvento Controller Services",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40113448"
+	},
+	"item": [
+		{
+			"name": "Get All TipoEventos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/tipoeventos",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"tipoeventos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get TipoEvento By ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/tipoeventos/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"tipoeventos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create TipoEvento",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nombre\": \"Carrera 5K\",\n  \"descripcion\": \"Carrera popular de 5 kilómetros\",\n  \"modalidad\": \"INDIVIDUAL\",\n  \"unidades\": \"{}\",\n  \"categoria\": \"VARONIL\",\n  \"participantes\": 100\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/tipoeventos",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"tipoeventos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update TipoEvento",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"idTipoEvento\": 1,\n  \"nombre\": \"Carrera 10K\",\n  \"descripcion\": \"Carrera popular de 10 kilómetros\",\n  \"modalidad\": \"INDIVIDUAL\",\n  \"unidades\": \"{}\",\n  \"categoria\": \"FEMENIL\",\n  \"participantes\": 150\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/tipoeventos/:id",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"tipoeventos",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete TipoEvento",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/tipoeventos/:id",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"tipoeventos",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

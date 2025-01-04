@@ -1,0 +1,121 @@
+{
+	"info": {
+		"_postman_id": "65ff15b7-84db-4df1-b58e-edc9aa7be0a3",
+		"name": "Evento Controller Services",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40113448"
+	},
+	"item": [
+		{
+			"name": "Get All Eventos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/eventos",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"eventos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Evento By ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/eventos/11",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"eventos",
+						"11"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Evento",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nombre\": \"Maratón 2025 Femenil\",\n  \"fechaInicioInscripciones\": \"2025-01-01\",\n  \"fechaFinInscripciones\": \"2025-02-01\",\n  \"fechaInicioEvento\": \"2025-03-01T08:00:00\",\n  \"fechaFinEvento\": \"2025-03-01T12:00:00\",\n  \"modalidades\": \"individual\",\n  \"categoria\": \"FEMENIL\",\n  \"costo\": 100.00,\n  \"horario\": \"matutino\",\n  \"requisitos\": \"Mayor de 18 años\",\n  \"reglas\": \"No se permiten mascotas\",\n  \"tipoEvento\": { \"idTipoEvento\": 2 },\n  \"entrenador\": { \"idAdministrador\": 3 },\n  \"administrador\": { \"idAdministrador\" : 2 },\n  \"estado\": \"INSCRIPCIONES\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/eventos",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"eventos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Evento",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nombre\": \"Maratón 2024 - Actualizado\",\n  \"fechaInicioInscripciones\": \"2024-01-10\",\n  \"fechaFinInscripciones\": \"2024-02-10\",\n  \"fechaInicioEvento\": \"2024-03-05T08:00:00\",\n  \"fechaFinEvento\": \"2024-03-05T12:00:00\",\n  \"modalidades\": \"individual\",\n  \"categoria\": \"VARONIL\",\n  \"costo\": 120.00,\n  \"requisitos\": \"Mayor de 18 años, con certificado médico\",\n  \"reglas\": \"No se permiten mascotas ni dispositivos electrónicos\",\n  \"tipoEvento\": { \"idTipoEvento\": 2 },\n  \"entrenador\": { \"idAdministrador\": 2 },\n  \"administrador\": { \"idAdministrador\" : 3 },\n  \"estado\": \"INSCRIPCIONES\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/eventos/10",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"eventos",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Evento",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/eventos/9",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"eventos",
+						"9"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

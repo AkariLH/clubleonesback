@@ -1,0 +1,127 @@
+{
+	"info": {
+		"_postman_id": "133a9154-2717-4d80-b6c5-23e4dfe34331",
+		"name": "Administracion Controller Services",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40113448"
+	},
+	"item": [
+		{
+			"name": "Get All Administradores",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/administradores",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"administradores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Administrador By ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/administradores/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"administradores",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Administrador",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nombre\": \"Akari\",\n  \"correo\": \"akari@suzumail.com\",\n  \"contrasena\": \"amoasuzu\",\n  \"rol\": \"ADMIN\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/administradores",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"administradores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Administrador",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nombre\": \"John Updated\",\n  \"correo\": \"johnupdated@example.com\",\n  \"contrasena\": \"newpassword123\",\n  \"rol\": \"Entrenador\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/administradores/:id",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"administradores",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Administrador",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/administradores/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"administradores",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
