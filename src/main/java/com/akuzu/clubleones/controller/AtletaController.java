@@ -17,6 +17,9 @@ public class AtletaController {
     @Autowired
     private AtletaService atletaService;
 
+    @Autowired
+    private EventoService eventoService;
+
     @GetMapping
     public ResponseEntity<List<Atleta>> getAllAtletas() {
         return new ResponseEntity<>(atletaService.getAllAtletas(), HttpStatus.OK);
@@ -43,5 +46,26 @@ public class AtletaController {
     public ResponseEntity<Void> deleteAtleta(@PathVariable Integer id) {
         atletaService.deleteAtleta(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping("/{atletaId}/eventos/{eventoId}")
+    public ResponseEntity<String> registerAtletaToEvento(@PathVariable Integer atletaId, @PathVariable Integer eventoId) {
+        Optional<Atleta> atletaOpt = atletaService.getAtletaById(atletaId);
+        Optional<Evento> eventoOpt = eventoService.getEventoById(eventoId);
+
+        if (atletaOpt.isEmpty()) {
+            return new ResponseEntity<>("Atleta not found", HttpStatus.NOT_FOUND);
+        }
+
+        if (eventoOpt.isEmpty()) {
+            return new ResponseEntity<>("Evento not found", HttpStatus.NOT_FOUND);
+        }
+
+        Atleta atleta = atletaOpt.get();
+        Evento evento = eventoOpt.get();
+
+        // Logic to register the athlete to the event
+
+        return new ResponseEntity<>("Atleta registered to Evento successfully", HttpStatus.OK);
     }
 }
