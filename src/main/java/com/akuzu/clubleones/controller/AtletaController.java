@@ -2,6 +2,7 @@ package com.akuzu.clubleones.controller;
 
 import com.akuzu.clubleones.dto.*;
 import com.akuzu.clubleones.entity.*;
+import com.akuzu.clubleones.repository.AtletaEventoRepository;
 import com.akuzu.clubleones.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,9 @@ public class AtletaController {
 
     @Autowired
     private EventoService eventoService;
+
+    @Autowired
+    private AtletaEventoRepository atletaEventoRepository;
 
     @GetMapping
     public ResponseEntity<List<Atleta>> getAllAtletas() {
@@ -64,7 +68,11 @@ public class AtletaController {
         Atleta atleta = atletaOpt.get();
         Evento evento = eventoOpt.get();
 
-        // Logic to register the athlete to the event
+        AtletaEvento atletaEvento = new AtletaEvento();
+        atletaEvento.setAtleta(atleta);
+        atletaEvento.setEvento(evento);
+        atletaEvento.setParticipacion(null);
+        atletaEventoRepository.save(atletaEvento);
 
         return new ResponseEntity<>("Atleta registered to Evento successfully", HttpStatus.OK);
     }
