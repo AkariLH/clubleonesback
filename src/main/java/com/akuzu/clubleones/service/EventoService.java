@@ -9,6 +9,7 @@ import com.akuzu.clubleones.repository.TipoEventoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,5 +79,12 @@ public class EventoService {
             return eventoRepository.save(evento);
         }).orElseThrow(() -> new RuntimeException("Evento not found"));
     }
+
+    public List<Evento> getEventosPorFecha(String inicio, String fin) {
+    LocalDate fechaInicio = LocalDate.parse(inicio);
+    LocalDate fechaFin = LocalDate.parse(fin);
+    return eventoRepository.findByFechaBetween(fechaInicio, fechaFin);
+}
+
 
 }

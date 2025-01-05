@@ -44,4 +44,12 @@ public class EventoController {
         eventoService.deleteEvento(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    @GetMapping("/por-fecha")
+    public ResponseEntity<List<Evento>> getEventosPorFecha(
+            @RequestParam("inicio") String inicio,
+            @RequestParam("fin") String fin) {
+        List<Evento> eventos = eventoService.getEventosPorFecha(inicio, fin);
+        return new ResponseEntity<>(eventos, HttpStatus.OK);
+    }
+
 }
