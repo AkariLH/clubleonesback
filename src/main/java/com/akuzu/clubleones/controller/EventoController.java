@@ -37,7 +37,8 @@ public class EventoController {
     @PutMapping("/{id}")
     public ResponseEntity<Evento> updateEvento(@PathVariable Integer id, @RequestBody Evento evento) {
         return new ResponseEntity<>(eventoService.updateEvento(id, evento), HttpStatus.OK);
-    }
+}
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEvento(@PathVariable Integer id) {
@@ -50,6 +51,16 @@ public class EventoController {
             @RequestParam("fin") String fin) {
         List<Evento> eventos = eventoService.getEventosPorFecha(inicio, fin);
         return new ResponseEntity<>(eventos, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}/cancelar")
+    public ResponseEntity<Evento> cancelarEvento(@PathVariable Integer id) {
+        try {
+            Evento eventoCancelado = eventoService.cancelarEvento(id);
+            return new ResponseEntity<>(eventoCancelado, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 }

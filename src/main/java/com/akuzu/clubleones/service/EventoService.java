@@ -6,8 +6,14 @@ import com.akuzu.clubleones.entity.TipoEvento;
 import com.akuzu.clubleones.repository.AdministracionRepository;
 import com.akuzu.clubleones.repository.EventoRepository;
 import com.akuzu.clubleones.repository.TipoEventoRepository;
+import com.akuzu.clubleones.util.EstadoEvento;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -72,19 +78,43 @@ public class EventoService {
             evento.setCategoria(newEvento.getCategoria());
             evento.setCosto(newEvento.getCosto());
             evento.setDetalles(newEvento.getDetalles());
-            evento.setTipoEvento(newEvento.getTipoEvento());
-            evento.setEntrenador(newEvento.getEntrenador());
-            evento.setAdministrador(newEvento.getAdministrador());
+    
+            if (newEvento.getTipoEvento() != null && newEvento.getTipoEvento().getIdTipoEvento() != null) {
+                TipoEvento tipoEvento = tipoEventoRepository.findById(newEvento.getTipoEvento().getIdTipoEvento())
+                    .orElseThrow(() -> new RuntimeException("TipoEvento no encontrado"));
+                evento.setTipoEvento(tipoEvento);
+            }
+    
+            if (newEvento.getEntrenador() != null && newEvento.getEntrenador().getIdAdministrador() != null) {
+                Administracion entrenador = administracionRepository.findById(newEvento.getEntrenador().getIdAdministrador())
+                    .orElseThrow(() -> new RuntimeException("Entrenador no encontrado"));
+                evento.setEntrenador(entrenador);
+            }
+    
+            if (newEvento.getAdministrador() != null && newEvento.getAdministrador().getIdAdministrador() != null) {
+                Administracion administrador = administracionRepository.findById(newEvento.getAdministrador().getIdAdministrador())
+                    .orElseThrow(() -> new RuntimeException("Administrador no encontrado"));
+                evento.setAdministrador(administrador);
+            }
+    
             evento.setEstado(newEvento.getEstado());
             return eventoRepository.save(evento);
-        }).orElseThrow(() -> new RuntimeException("Evento not found"));
-    }
+        }).orElseThrow(() -> new RuntimeException("Evento no encontrado"));
+    }    
+    
 
     public List<Evento> getEventosPorFecha(String inicio, String fin) {
-    LocalDate fechaInicio = LocalDate.parse(inicio);
-    LocalDate fechaFin = LocalDate.parse(fin);
-    return eventoRepository.findByFechaBetween(fechaInicio, fechaFin);
-}
+        LocalDate fechaInicio = LocalDate.parse(inicio);
+        LocalDate fechaFin = LocalDate.parse(fin);
+        return eventoRepository.findByFechaBetween(fechaInicio, fechaFin);
+    }
 
+    public Evento cancelarEvento(Integer id) {
+        return eventoRepository.findById(id).map(evento -> {
+            // Convertir el String "CANCELADO" a Enum
+                evento.setEstado(EstadoEvento.valueOf("CANCELADO"));
+                return eventoRepository.save(evento);
+            }).orElseThrow(() -> new RuntimeException("Evento no encontrado"));    
+    }   
 
 }
