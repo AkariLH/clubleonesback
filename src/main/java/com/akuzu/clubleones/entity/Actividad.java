@@ -1,7 +1,6 @@
 package com.akuzu.clubleones.entity;
 
 import jakarta.persistence.*;
-import jdk.jfr.DataAmount;
 import lombok.Data;
 
 import java.sql.Time;

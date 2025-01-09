@@ -1,6 +1,5 @@
 package com.akuzu.clubleones.controller;
 
-import com.akuzu.clubleones.dto.*;
 import com.akuzu.clubleones.entity.*;
 import com.akuzu.clubleones.repository.AtletaEventoRepository;
 import com.akuzu.clubleones.service.*;
