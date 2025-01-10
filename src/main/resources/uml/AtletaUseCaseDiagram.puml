@@ -1,0 +1,11 @@
+@startuml
+actor Atleta
+
+usecase "View Evento" as UC1
+usecase "Register for Evento" as UC2
+usecase "View Actividad" as UC3
+
+Atleta --> UC1
+Atleta --> UC2
+Atleta --> UC3
+@enduml
