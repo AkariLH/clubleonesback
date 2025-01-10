@@ -1,5 +1,7 @@
 package com.akuzu.clubleones.config; // Ajusta el paquete según tu estructura
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -20,5 +22,12 @@ public class WebConfig {
                         .allowCredentials(true); // Permitir cookies/sesiones compartidas
             }
         };
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+        return objectMapper;
     }
 }
