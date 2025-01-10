@@ -1,0 +1,166 @@
+@startuml
+actor User
+participant EventoController
+participant ActividadController
+participant TipoEventoController
+participant AdministracionController
+
+participant EventoService
+participant ActividadService
+participant TipoEventoService
+participant AdministracionService
+
+participant EventoRepository
+participant ActividadRepository
+participant TipoEventoRepository
+participant AdministracionRepository
+
+participant Evento
+participant Actividad
+participant TipoEvento
+participant Administracion
+
+User -> EventoController: createEvento()
+EventoController -> EventoService: createEvento()
+EventoService -> EventoRepository: save(Evento)
+EventoRepository -> Evento: new Evento()
+EventoRepository <-- Evento: Evento instance
+EventoService <-- EventoRepository: Evento saved
+EventoController <-- EventoService: Evento created
+User <-- EventoController: Evento created response
+
+User -> EventoController: getEvento(id)
+EventoController -> EventoService: getEvento(id)
+EventoService -> EventoRepository: findById(id)
+EventoRepository -> Evento: find(id)
+EventoRepository <-- Evento: Evento instance
+EventoService <-- EventoRepository: Evento found
+EventoController <-- EventoService: Evento found
+User <-- EventoController: Evento details
+
+User -> EventoController: updateEvento(id, Evento)
+EventoController -> EventoService: updateEvento(id, Evento)
+EventoService -> EventoRepository: findById(id)
+EventoRepository -> Evento: find(id)
+EventoRepository <-- Evento: Evento instance
+EventoService -> EventoRepository: save(Evento)
+EventoRepository <-- Evento: Evento updated
+EventoService <-- EventoRepository: Evento updated
+EventoController <-- EventoService: Evento updated
+User <-- EventoController: Evento updated response
+
+User -> EventoController: deleteEvento(id)
+EventoController -> EventoService: deleteEvento(id)
+EventoService -> EventoRepository: deleteById(id)
+EventoRepository <-- EventoService: Evento deleted
+EventoController <-- EventoService: Evento deleted
+User <-- EventoController: Evento deleted response
+
+User -> ActividadController: createActividad()
+ActividadController -> ActividadService: createActividad()
+ActividadService -> ActividadRepository: save(Actividad)
+ActividadRepository -> Actividad: new Actividad()
+ActividadRepository <-- Actividad: Actividad instance
+ActividadService <-- ActividadRepository: Actividad saved
+ActividadController <-- ActividadService: Actividad created
+User <-- ActividadController: Actividad created response
+
+User -> ActividadController: getActividad(id)
+ActividadController -> ActividadService: getActividad(id)
+ActividadService -> ActividadRepository: findById(id)
+ActividadRepository -> Actividad: find(id)
+ActividadRepository <-- Actividad: Actividad instance
+ActividadService <-- ActividadRepository: Actividad found
+ActividadController <-- ActividadService: Actividad found
+User <-- ActividadController: Actividad details
+
+User -> ActividadController: updateActividad(id, Actividad)
+ActividadController -> ActividadService: updateActividad(id, Actividad)
+ActividadService -> ActividadRepository: findById(id)
+ActividadRepository -> Actividad: find(id)
+ActividadRepository <-- Actividad: Actividad instance
+ActividadService -> ActividadRepository: save(Actividad)
+ActividadRepository <-- Actividad: Actividad updated
+ActividadService <-- ActividadRepository: Actividad updated
+ActividadController <-- ActividadService: Actividad updated
+User <-- ActividadController: Actividad updated response
+
+User -> ActividadController: deleteActividad(id)
+ActividadController -> ActividadService: deleteActividad(id)
+ActividadService -> ActividadRepository: deleteById(id)
+ActividadRepository <-- ActividadService: Actividad deleted
+ActividadController <-- ActividadService: Actividad deleted
+User <-- ActividadController: Actividad deleted response
+
+User -> TipoEventoController: createTipoEvento()
+TipoEventoController -> TipoEventoService: createTipoEvento()
+TipoEventoService -> TipoEventoRepository: save(TipoEvento)
+TipoEventoRepository -> TipoEvento: new TipoEvento()
+TipoEventoRepository <-- TipoEvento: TipoEvento instance
+TipoEventoService <-- TipoEventoRepository: TipoEvento saved
+TipoEventoController <-- TipoEventoService: TipoEvento created
+User <-- TipoEventoController: TipoEvento created response
+
+User -> TipoEventoController: getTipoEvento(id)
+TipoEventoController -> TipoEventoService: getTipoEvento(id)
+TipoEventoService -> TipoEventoRepository: findById(id)
+TipoEventoRepository -> TipoEvento: find(id)
+TipoEventoRepository <-- TipoEvento: TipoEvento instance
+TipoEventoService <-- TipoEventoRepository: TipoEvento found
+TipoEventoController <-- TipoEventoService: TipoEvento found
+User <-- TipoEventoController: TipoEvento details
+
+User -> TipoEventoController: updateTipoEvento(id, TipoEvento)
+TipoEventoController -> TipoEventoService: updateTipoEvento(id, TipoEvento)
+TipoEventoService -> TipoEventoRepository: findById(id)
+TipoEventoRepository -> TipoEvento: find(id)
+TipoEventoRepository <-- TipoEvento: TipoEvento instance
+TipoEventoService -> TipoEventoRepository: save(TipoEvento)
+TipoEventoRepository <-- TipoEvento: TipoEvento updated
+TipoEventoService <-- TipoEventoRepository: TipoEvento updated
+TipoEventoController <-- TipoEventoService: TipoEvento updated
+User <-- TipoEventoController: TipoEvento updated response
+
+User -> TipoEventoController: deleteTipoEvento(id)
+TipoEventoController -> TipoEventoService: deleteTipoEvento(id)
+TipoEventoService -> TipoEventoRepository: deleteById(id)
+TipoEventoRepository <-- TipoEventoService: TipoEvento deleted
+TipoEventoController <-- TipoEventoService: TipoEvento deleted
+User <-- TipoEventoController: TipoEvento deleted response
+
+User -> AdministracionController: createAdministracion()
+AdministracionController -> AdministracionService: createAdministracion()
+AdministracionService -> AdministracionRepository: save(Administracion)
+AdministracionRepository -> Administracion: new Administracion()
+AdministracionRepository <-- Administracion: Administracion instance
+AdministracionService <-- AdministracionRepository: Administracion saved
+AdministracionController <-- AdministracionService: Administracion created
+User <-- AdministracionController: Administracion created response
+
+User -> AdministracionController: getAdministracion(id)
+AdministracionController -> AdministracionService: getAdministracion(id)
+AdministracionService -> AdministracionRepository: findById(id)
+AdministracionRepository -> Administracion: find(id)
+AdministracionRepository <-- Administracion: Administracion instance
+AdministracionService <-- AdministracionRepository: Administracion found
+AdministracionController <-- AdministracionService: Administracion found
+User <-- AdministracionController: Administracion details
+
+User -> AdministracionController: updateAdministracion(id, Administracion)
+AdministracionController -> AdministracionService: updateAdministracion(id, Administracion)
+AdministracionService -> AdministracionRepository: findById(id)
+AdministracionRepository -> Administracion: find(id)
+AdministracionRepository <-- Administracion: Administracion instance
+AdministracionService -> AdministracionRepository: save(Administracion)
+AdministracionRepository <-- Administracion: Administracion updated
+AdministracionService <-- AdministracionRepository: Administracion updated
+AdministracionController <-- AdministracionService: Administracion updated
+User <-- AdministracionController: Administracion updated response
+
+User -> AdministracionController: deleteAdministracion(id)
+AdministracionController -> AdministracionService: deleteAdministracion(id)
+AdministracionService -> AdministracionRepository: deleteById(id)
+AdministracionRepository <-- AdministracionService: Administracion deleted
+AdministracionController <-- AdministracionService: Administracion deleted
+User <-- AdministracionController: Administracion deleted response
+@enduml

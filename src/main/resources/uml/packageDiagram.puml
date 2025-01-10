@@ -1,0 +1,30 @@
+@startuml
+package "com.akuzu.clubleones" {
+  package controller {
+    class EventoController
+  }
+  package service {
+    class EventoService
+  }
+  package repository {
+    class EventoRepository
+    class TipoEventoRepository
+    class AdministracionRepository
+  }
+  package entity {
+    class Evento
+    class Actividad
+    class TipoEvento
+    class Administracion
+  }
+  package util {
+    class Unidades
+    class EstadoEvento
+    class Categoria
+    class Modalidad
+  }
+  package config {
+    class application_properties
+  }
+}
+@enduml

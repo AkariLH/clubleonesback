@@ -1,0 +1,28 @@
+@startuml
+[*] --> EventoCreado
+
+state EventoCreado {
+  [*] --> InscripcionesAbiertas
+}
+
+state InscripcionesAbiertas {
+  [*] --> InscripcionesCerradas
+}
+
+state InscripcionesCerradas {
+  [*] --> EventoEnCurso
+}
+
+state EventoEnCurso {
+  [*] --> EventoFinalizado
+}
+
+state EventoFinalizado {
+  [*] --> [*]
+}
+
+EventoCreado --> InscripcionesAbiertas : abrirInscripciones
+InscripcionesAbiertas --> InscripcionesCerradas : cerrarInscripciones
+InscripcionesCerradas --> EventoEnCurso : iniciarEvento
+EventoEnCurso --> EventoFinalizado : finalizarEvento
+@enduml

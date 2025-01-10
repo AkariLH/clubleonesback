@@ -1,0 +1,43 @@
+@startuml
+actor User
+participant EventoController
+participant EventoService
+participant EventoRepository
+participant Evento
+
+User -> EventoController: createEvento()
+EventoController -> EventoService: createEvento()
+EventoService -> EventoRepository: save(Evento)
+EventoRepository -> Evento: new Evento()
+EventoRepository <-- Evento: Evento instance
+EventoService <-- EventoRepository: Evento saved
+EventoController <-- EventoService: Evento created
+User <-- EventoController: Evento created response
+
+User -> EventoController: getEvento(id)
+EventoController -> EventoService: getEvento(id)
+EventoService -> EventoRepository: findById(id)
+EventoRepository -> Evento: find(id)
+EventoRepository <-- Evento: Evento instance
+EventoService <-- EventoRepository: Evento found
+EventoController <-- EventoService: Evento found
+User <-- EventoController: Evento details
+
+User -> EventoController: updateEvento(id, Evento)
+EventoController -> EventoService: updateEvento(id, Evento)
+EventoService -> EventoRepository: findById(id)
+EventoRepository -> Evento: find(id)
+EventoRepository <-- Evento: Evento instance
+EventoService -> EventoRepository: save(Evento)
+EventoRepository <-- Evento: Evento updated
+EventoService <-- EventoRepository: Evento updated
+EventoController <-- EventoService: Evento updated
+User <-- EventoController: Evento updated response
+
+User -> EventoController: deleteEvento(id)
+EventoController -> EventoService: deleteEvento(id)
+EventoService -> EventoRepository: deleteById(id)
+EventoRepository <-- EventoService: Evento deleted
+EventoController <-- EventoService: Evento deleted
+User <-- EventoController: Evento deleted response
+@enduml
