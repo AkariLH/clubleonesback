@@ -1,13 +1,18 @@
 package com.akuzu.clubleones.controller;
 
 import com.akuzu.clubleones.entity.*;
+import com.akuzu.clubleones.repository.AtletaEventoRepository;
 import com.akuzu.clubleones.service.*;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/eventos")
@@ -15,6 +20,9 @@ public class EventoController {
 
     @Autowired
     private EventoService eventoService;
+
+    @Autowired
+    private AtletaEventoRepository atletaEventoRepository;
 
     @GetMapping
     public ResponseEntity<List<Evento>> getAllEventos() {
@@ -62,4 +70,18 @@ public class EventoController {
         }
     }
 
+    @GetMapping("/atletas/{eventoId}")
+    public ResponseEntity<List<Atleta>> getEventosPorEventoId(@PathVariable Integer eventoId){
+        Optional<Evento> evento = eventoService.getEventoById(eventoId);
+        if(!evento.isPresent()){
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        List<AtletaEvento> atletaEvento = new ArrayList<AtletaEvento>();
+        Hibernate.initialize(atletaEvento);
+        atletaEvento = atletaEventoRepository.findByEvento(evento.get());
+        List<Atleta> atletas = atletaEvento.stream()
+                .map(AtletaEvento::getAtleta)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(atletas, HttpStatus.OK);
+    }
 }
