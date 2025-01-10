@@ -1,5 +1,6 @@
 package com.akuzu.clubleones.entity;
 
+import com.akuzu.clubleones.util.Unidades;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -30,4 +31,7 @@ public class Actividad {
 
     @Column(name = "hora_fin")
     private Time horaFin;
+
+    @Column(name = "unidades")
+    private Unidades unidades;
 }
