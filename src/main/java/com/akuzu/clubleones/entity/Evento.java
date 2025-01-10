@@ -68,4 +68,7 @@ public class Evento {
     @Column(nullable = false)
     private EstadoEvento estado;
 
+    @Column(nullable = true)
+    private Integer numintegrantes;
+
 }

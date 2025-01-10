@@ -78,6 +78,7 @@ public class EventoService {
             evento.setCategoria(newEvento.getCategoria());
             evento.setCosto(newEvento.getCosto());
             evento.setDetalles(newEvento.getDetalles());
+            evento.setNumintegrantes(newEvento.getNumintegrantes());
     
             if (newEvento.getTipoEvento() != null && newEvento.getTipoEvento().getIdTipoEvento() != null) {
                 TipoEvento tipoEvento = tipoEventoRepository.findById(newEvento.getTipoEvento().getIdTipoEvento())
