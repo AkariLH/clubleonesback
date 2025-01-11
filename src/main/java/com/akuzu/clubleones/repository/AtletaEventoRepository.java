@@ -10,4 +10,5 @@ import java.util.List;
 public interface AtletaEventoRepository extends JpaRepository<AtletaEvento, Integer> {
     List<AtletaEvento> findByAtleta(Atleta atleta);
     List<AtletaEvento> findByEvento(Evento evento);
+    boolean existsByAtletaAndEvento(Atleta atleta, Evento evento);
 }

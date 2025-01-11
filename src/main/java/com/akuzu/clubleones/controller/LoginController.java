@@ -24,30 +24,30 @@ public class LoginController {
     private AtletaRepository atletaRepository;
 
     @PostMapping
-public ResponseEntity<UserDTO> login(@RequestBody LoginRequest loginRequest) {
-    // Check for Administrador or Entrenador
-    Optional<Administracion> adminOpt = administracionRepository.findByCorreoAndContrasena(
-            loginRequest.getCorreo(), loginRequest.getContrasena()
-    );
+    public ResponseEntity<UserDTO> login(@RequestBody LoginRequest loginRequest) {
+        // Check for Administrador or Entrenador
+        Optional<Administracion> adminOpt = administracionRepository.findByCorreoAndContrasena(
+                loginRequest.getCorreo(), loginRequest.getContrasena()
+        );
 
-    if (adminOpt.isPresent()) {
-        Administracion admin = adminOpt.get();
-        UserDTO userDTO = new UserDTO(admin.getNombre(), admin.getCorreo(), admin.getRol().toString(), admin.getIdAdministrador());
-        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+        if (adminOpt.isPresent()) {
+            Administracion admin = adminOpt.get();
+            UserDTO userDTO = new UserDTO(admin.getNombre(), admin.getCorreo(), admin.getRol().toString(), admin.getIdAdministrador());
+            return new ResponseEntity<>(userDTO, HttpStatus.OK);
+        }
+
+        // Check for Atleta
+        Optional<Atleta> atletaOpt = atletaRepository.findByCorreoAndContrasena(
+                loginRequest.getCorreo(), loginRequest.getContrasena()
+        );
+
+        if (atletaOpt.isPresent()) {
+            Atleta atleta = atletaOpt.get();
+            UserDTO userDTO = new UserDTO(atleta.getNombre(), atleta.getCorreo(), "Atleta", atleta.getIdAtleta());
+            return new ResponseEntity<>(userDTO, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
-
-    // Check for Atleta
-    Optional<Atleta> atletaOpt = atletaRepository.findByCorreoAndContrasena(
-            loginRequest.getCorreo(), loginRequest.getContrasena()
-    );
-
-    if (atletaOpt.isPresent()) {
-        Atleta atleta = atletaOpt.get();
-        UserDTO userDTO = new UserDTO(atleta.getNombre(), atleta.getCorreo(), "Atleta", atleta.getIdAtleta());
-        return new ResponseEntity<>(userDTO, HttpStatus.OK);
-    }
-
-    return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-}
 
 }

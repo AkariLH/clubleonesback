@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -56,28 +57,33 @@ public class AtletaController {
     }
 
     @PostMapping("/{atletaId}/eventos/{eventoId}")
-    public ResponseEntity<String> registerAtletaToEvento(@PathVariable Integer atletaId, @PathVariable Integer eventoId) {
+    public ResponseEntity<Map<String, String>> registerAtletaToEvento(@PathVariable Integer atletaId, @PathVariable Integer eventoId) {
         Optional<Atleta> atletaOpt = atletaService.getAtletaById(atletaId);
         Optional<Evento> eventoOpt = eventoService.getEventoById(eventoId);
-
+    
         if (atletaOpt.isEmpty()) {
-            return new ResponseEntity<>("Atleta not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(Map.of("error", "Atleta not found"), HttpStatus.NOT_FOUND);
         }
-
+    
         if (eventoOpt.isEmpty()) {
-            return new ResponseEntity<>("Evento not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(Map.of("error", "Evento not found"), HttpStatus.NOT_FOUND);
         }
-
+    
         Atleta atleta = atletaOpt.get();
         Evento evento = eventoOpt.get();
-
+    
+        // Verificar si ya existe la relación
+        if (atletaEventoRepository.existsByAtletaAndEvento(atleta, evento)) {
+            return new ResponseEntity<>(Map.of("error", "El atleta ya está registrado en este evento"), HttpStatus.CONFLICT);
+        }
+    
         AtletaEvento atletaEvento = new AtletaEvento();
         atletaEvento.setAtleta(atleta);
         atletaEvento.setEvento(evento);
         atletaEvento.setParticipacion(null);
         atletaEventoRepository.save(atletaEvento);
-
-        return new ResponseEntity<>("Atleta registered to Evento successfully", HttpStatus.OK);
+    
+        return new ResponseEntity<>(Map.of("message", "Atleta registered to Evento successfully"), HttpStatus.CREATED);
     }
 
     @GetMapping("/eventos/{atletaId}")

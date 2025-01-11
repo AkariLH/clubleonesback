@@ -1,6 +1,7 @@
 package com.akuzu.clubleones.controller;
 
 import com.akuzu.clubleones.entity.*;
+import com.akuzu.clubleones.repository.AdministracionRepository;
 import com.akuzu.clubleones.repository.AtletaEventoRepository;
 import com.akuzu.clubleones.service.*;
 import org.hibernate.Hibernate;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.akuzu.clubleones.repository.EventoRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,12 @@ public class EventoController {
 
     @Autowired
     private AtletaEventoRepository atletaEventoRepository;
+
+    @Autowired 
+    private AdministracionRepository administracionRepository;
+
+    @Autowired
+    private EventoRepository EventoRepository;
 
     @GetMapping
     public ResponseEntity<List<Evento>> getAllEventos() {
@@ -83,5 +91,15 @@ public class EventoController {
                 .map(AtletaEvento::getAtleta)
                 .collect(Collectors.toList());
         return new ResponseEntity<>(atletas, HttpStatus.OK);
+    }
+
+    @GetMapping("/entrenador/{entrenadorId}")
+    public ResponseEntity<List<Evento>> getEventosPorEntrenadorId(@PathVariable Integer entrenadorId){
+        Optional<Administracion> administracion = administracionRepository.findById(entrenadorId);
+        if(!administracion.isPresent()){
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        List<Evento> eventos = EventoRepository.findByEntrenador(administracion.get());
+        return new ResponseEntity<>(eventos, HttpStatus.OK);
     }
 }
