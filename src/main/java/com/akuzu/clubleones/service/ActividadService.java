@@ -33,6 +33,7 @@ public class ActividadService {
             actividad.setDia(newActividad.getDia());
             actividad.setHoraInicio(newActividad.getHoraInicio());
             actividad.setHoraFin(newActividad.getHoraFin());
+            actividad.setUnidades(newActividad.getUnidades());
             return actividadRepository.save(actividad);
         }).orElseThrow(() -> new RuntimeException("Actividad not found"));
     }

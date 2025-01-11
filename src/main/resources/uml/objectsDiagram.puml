@@ -1,0 +1,106 @@
+@startuml
+object Evento {
+  idEvento: Integer
+  nombre: String
+  fechaInicioInscripciones: Date
+  fechaFinInscripciones: Date
+  fechaInicioEvento: Date
+  fechaFinEvento: Date
+  horario: String
+  modalidades: Modalidad
+  categoria: Categoria
+  costo: BigDecimal
+  detalles: String
+  tipoEvento: TipoEvento
+  entrenador: Administracion
+  administrador: Administracion
+  estado: EstadoEvento
+  numintegrantes: Integer
+}
+
+object Actividad {
+  id: Integer
+  nombre: String
+  instalacion: Instalacion
+  dia: Date
+  horaInicio: Time
+  horaFin: Time
+  unidades: Unidades
+}
+
+object TipoEvento {
+  idTipoEvento: Integer
+  nombre: String
+}
+
+object Administracion {
+  idAdministrador: Integer
+  nombre: String
+}
+
+object Instalacion {
+  idInstalacion: Integer
+  nombre: String
+}
+
+object Unidades {
+  idUnidad: Integer
+  nombre: String
+}
+
+object EstadoEvento {
+  idEstado: Integer
+  nombre: String
+}
+
+object Categoria {
+  idCategoria: Integer
+  nombre: String
+}
+
+object Modalidad {
+  idModalidad: Integer
+  nombre: String
+}
+
+object Atleta {
+  idAtleta: Integer
+  nombre: String
+  edad: Integer
+  genero: String
+}
+
+object Equipo {
+  idEquipo: Integer
+  nombre: String
+}
+
+object AtletaEvento {
+  idAtletaEvento: Integer
+  atleta: Atleta
+  evento: Evento
+}
+
+object EquipoEvento {
+  idEquipoEvento: Integer
+  equipo: Equipo
+  evento: Evento
+}
+
+object ActividadEvento {
+  idActividadEvento: Integer
+  actividad: Actividad
+  evento: Evento
+}
+
+Evento --> TipoEvento
+Evento --> Administracion : entrenador
+Evento --> Administracion : administrador
+Evento --> Atleta
+Evento --> Equipo
+Evento --> AtletaEvento
+Evento --> EquipoEvento
+Evento --> ActividadEvento
+ActividadEvento --> Actividad
+Actividad --> Instalacion
+@enduml

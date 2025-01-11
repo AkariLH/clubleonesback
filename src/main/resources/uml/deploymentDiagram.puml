@@ -1,0 +1,16 @@
+@startuml
+node "User Device" {
+  [Angular Application]
+}
+
+node "Web Server" {
+  [Spring Boot Application]
+}
+
+node "Database Server" {
+  [MySQL Database]
+}
+
+[Angular Application] --> "Spring Boot Application" : HTTP Requests
+"Spring Boot Application" --> "MySQL Database" : JDBC
+@enduml

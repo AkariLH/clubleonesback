@@ -1,0 +1,37 @@
+@startuml
+actor Administrador
+
+usecase "Create Evento" as UC1
+usecase "Update Evento" as UC2
+usecase "Delete Evento" as UC3
+usecase "View Evento" as UC4
+usecase "Create Actividad" as UC5
+usecase "Update Actividad" as UC6
+usecase "Delete Actividad" as UC7
+usecase "View Actividad" as UC8
+usecase "Create TipoEvento" as UC9
+usecase "Update TipoEvento" as UC10
+usecase "Delete TipoEvento" as UC11
+usecase "View TipoEvento" as UC12
+usecase "Create Administracion" as UC13
+usecase "Update Administracion" as UC14
+usecase "Delete Administracion" as UC15
+usecase "View Administracion" as UC16
+
+Administrador --> UC1
+Administrador --> UC2
+Administrador --> UC3
+Administrador --> UC4
+Administrador --> UC5
+Administrador --> UC6
+Administrador --> UC7
+Administrador --> UC8
+Administrador --> UC9
+Administrador --> UC10
+Administrador --> UC11
+Administrador --> UC12
+Administrador --> UC13
+Administrador --> UC14
+Administrador --> UC15
+Administrador --> UC16
+@enduml
