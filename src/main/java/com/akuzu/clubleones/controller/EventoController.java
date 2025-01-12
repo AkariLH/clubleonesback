@@ -1,6 +1,7 @@
 package com.akuzu.clubleones.controller;
 
 import com.akuzu.clubleones.entity.*;
+import com.akuzu.clubleones.repository.ActividadRepository;
 import com.akuzu.clubleones.repository.AdministracionRepository;
 import com.akuzu.clubleones.repository.AtletaEventoRepository;
 import com.akuzu.clubleones.service.*;
@@ -31,6 +32,9 @@ public class EventoController {
 
     @Autowired
     private EventoRepository EventoRepository;
+
+    @Autowired
+    private ActividadRepository activiadRepository;
 
     @GetMapping
     public ResponseEntity<List<Evento>> getAllEventos() {
@@ -101,5 +105,15 @@ public class EventoController {
         }
         List<Evento> eventos = EventoRepository.findByEntrenador(administracion.get());
         return new ResponseEntity<>(eventos, HttpStatus.OK);
+    }
+
+    @GetMapping("/actividades/{eventoId}")
+    public ResponseEntity<List<Actividad>> getActividadesPorEventoId(@PathVariable Integer eventoId){
+        Optional<Evento> evento = eventoService.getEventoById(eventoId);
+        if(!evento.isPresent()){
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        List<Actividad> actividades = activiadRepository.findByEvento(evento.get());
+        return new ResponseEntity<>(actividades, HttpStatus.OK);
     }
 }
