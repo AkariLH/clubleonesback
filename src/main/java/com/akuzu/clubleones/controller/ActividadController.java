@@ -1,14 +1,15 @@
 package com.akuzu.clubleones.controller;
 
 import com.akuzu.clubleones.entity.*;
-import com.akuzu.clubleones.repository.ActividadEventoRepository;
 import com.akuzu.clubleones.service.ActividadService;
 import com.akuzu.clubleones.service.EventoService;
+import com.akuzu.clubleones.util.Unidades;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,9 +25,6 @@ public class ActividadController {
 
     @Autowired
     private EventoService eventoService;
-
-    @Autowired
-    private ActividadEventoRepository actividadEventoRepository;
 
     @GetMapping
     public ResponseEntity<List<Actividad>> getAllActividades() {
@@ -60,7 +58,10 @@ public class ActividadController {
     public ResponseEntity<String> registerActividadToEvento(
             @PathVariable Integer actividadId,
             @PathVariable Integer eventoId,
-            @RequestParam String horario) {
+            @RequestParam String dia,
+            @RequestParam String horaInicio,
+            @RequestParam String horaFin,
+            @RequestParam Unidades unidades) {
         Optional<Actividad> actividadOpt = actividadService.getActividadById(actividadId);
         Optional<Evento> eventoOpt = eventoService.getEventoById(eventoId);
 
@@ -75,20 +76,26 @@ public class ActividadController {
         Actividad actividad = actividadOpt.get();
         Evento evento = eventoOpt.get();
 
-        ActividadEvento actividadEvento = new ActividadEvento();
-        actividadEvento.setActividad(actividad);
-        actividadEvento.setEvento(evento);
-
         try {
-            // Convert the "horario" string (time) to a Date object
+            // Convert the "dia" string to a Date object
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date diaDate = dateFormat.parse(dia);
+            actividad.setDia(diaDate);
+
+            // Convert the "horaInicio" and "horaFin" strings to Time objects
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-            Date horarioDate = timeFormat.parse(horario);
-            actividadEvento.setHorario(horarioDate);
+            Time horaInicioTime = new Time(timeFormat.parse(horaInicio).getTime());
+            Time horaFinTime = new Time(timeFormat.parse(horaFin).getTime());
+            actividad.setHoraInicio(horaInicioTime);
+            actividad.setHoraFin(horaFinTime);
         } catch (ParseException e) {
-            return new ResponseEntity<>("Invalid time format. Expected format: HH:mm:ss", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Invalid date or time format. Expected formats: yyyy-MM-dd, HH:mm:ss", HttpStatus.BAD_REQUEST);
         }
 
-        actividadEventoRepository.save(actividadEvento);
+        actividad.setUnidades(unidades);
+        actividad.setEvento(evento);
+
+        actividadService.updateActividad(actividadId, actividad);
 
         return new ResponseEntity<>("Actividad registered to Evento successfully", HttpStatus.OK);
     }

@@ -34,4 +34,8 @@ public class Actividad {
 
     @Column(name = "unidades")
     private Unidades unidades;
+
+    @ManyToOne
+    @JoinColumn(name = "id_evento")
+    private Evento evento;
 }
