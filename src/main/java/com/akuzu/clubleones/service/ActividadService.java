@@ -23,8 +23,12 @@ public class ActividadService {
     }
 
     public Actividad createActividad(Actividad actividad) {
+        if (actividad.getEvento() == null || actividad.getEvento().getIdEvento() == null) {
+            throw new IllegalArgumentException("El ID del evento es obligatorio");
+        }
+    
         return actividadRepository.save(actividad);
-    }
+    }    
 
     public Actividad updateActividad(Integer id, final Actividad newActividad) {
         return actividadRepository.findById(id).map(actividad -> {

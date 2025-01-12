@@ -36,6 +36,6 @@ public class Actividad {
     private Unidades unidades;
 
     @ManyToOne
-    @JoinColumn(name = "id_evento")
+    @JoinColumn(name = "id_evento", nullable = false)
     private Evento evento;
 }

@@ -39,8 +39,14 @@ public class ActividadController {
     }
 
     @PostMapping
-    public ResponseEntity<Actividad> createActividad(@RequestBody Actividad actividad) {
-        return new ResponseEntity<>(actividadService.createActividad(actividad), HttpStatus.CREATED);
+    public ResponseEntity<List<Actividad>> createActividades(@RequestBody List<Actividad> actividades) {
+        for (Actividad actividad : actividades) {
+            if (actividad.getEvento() == null || actividad.getEvento().getIdEvento() == null) {
+                return ResponseEntity.badRequest().build(); // Validar que cada actividad tenga un evento asociado
+            }
+            actividadService.createActividad(actividad);
+        }
+        return new ResponseEntity<>(actividades, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
