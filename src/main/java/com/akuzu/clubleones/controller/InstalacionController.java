@@ -1,5 +1,6 @@
 package com.akuzu.clubleones.controller;
 
+import com.akuzu.clubleones.entity.Actividad;
 import com.akuzu.clubleones.entity.Instalacion;
 import com.akuzu.clubleones.service.InstalacionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +44,10 @@ public class InstalacionController {
     public ResponseEntity<Void> deleteInstalacion(@PathVariable Integer id) {
         instalacionService.deleteInstalacion(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/actividades/{idInstalacion}")
+    public ResponseEntity<List<Actividad>> getActividadesByInstalacion(@PathVariable Integer idInstalacion) {
+        return new ResponseEntity<>(instalacionService.getActividadesByInstalacion(idInstalacion), HttpStatus.OK);
     }
 }

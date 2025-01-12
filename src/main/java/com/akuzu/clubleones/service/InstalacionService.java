@@ -1,6 +1,8 @@
 package com.akuzu.clubleones.service;
 
+import com.akuzu.clubleones.entity.Actividad;
 import com.akuzu.clubleones.entity.Instalacion;
+import com.akuzu.clubleones.repository.ActividadRepository;
 import com.akuzu.clubleones.repository.InstalacionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,9 @@ public class InstalacionService {
 
     @Autowired
     private InstalacionRepository instalacionRepository;
+
+    @Autowired
+    private ActividadRepository actividadRepository;
 
     public List<Instalacion> getAllInstalaciones() {
         return instalacionRepository.findAll();
@@ -36,5 +41,14 @@ public class InstalacionService {
 
     public void deleteInstalacion(Integer id) {
         instalacionRepository.deleteById(id);
+    }
+
+    public List<Actividad> getActividadesByInstalacion(Integer idInstalacion) {
+        Optional<Instalacion> instalacion = instalacionRepository.findById(idInstalacion);
+        if (instalacion.isPresent()) {
+            return actividadRepository.findByInstalacion(instalacion.get());
+        } else {
+            throw new RuntimeException("Instalacion not found");
+        }
     }
 }
