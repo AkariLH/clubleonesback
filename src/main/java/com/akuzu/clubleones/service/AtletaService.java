@@ -1,6 +1,7 @@
 package com.akuzu.clubleones.service;
 
 import com.akuzu.clubleones.entity.Atleta;
+import com.akuzu.clubleones.repository.AtletaEventoRepository;
 import com.akuzu.clubleones.repository.AtletaRepository;
 import com.akuzu.clubleones.repository.EquipoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class AtletaService {
 
     @Autowired
     private EquipoRepository equipoRepository;
+
+    @Autowired
+    private AtletaEventoRepository atletaEventoRepository;
 
     public Atleta createAtleta(Atleta atleta) {
         return atletaRepository.save(atleta);

@@ -3,6 +3,7 @@ package com.akuzu.clubleones.controller;
 import com.akuzu.clubleones.entity.*;
 import com.akuzu.clubleones.repository.AtletaEventoRepository;
 import com.akuzu.clubleones.service.*;
+import com.akuzu.clubleones.util.ParticipacionConverter;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -84,6 +85,29 @@ public class AtletaController {
         atletaEventoRepository.save(atletaEvento);
     
         return new ResponseEntity<>(Map.of("message", "Atleta registered to Evento successfully"), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{atletaId}/eventos/{eventoId}")
+    public ResponseEntity<Map<String, Object>> registrarParticipacion(@PathVariable Integer atletaId, @PathVariable Integer eventoId, @RequestParam String participacion) {
+        Optional<Atleta> atletaOpt = atletaService.getAtletaById(atletaId);
+        Optional<Evento> eventoOpt = eventoService.getEventoById(eventoId);
+
+        if (atletaOpt.isEmpty()) {
+            return new ResponseEntity<>(Map.of("error", "Atleta not found"), HttpStatus.NOT_FOUND);
+        }
+        if (eventoOpt.isEmpty()) {
+            return new ResponseEntity<>(Map.of("error", "Evento not found"), HttpStatus.NOT_FOUND);
+        }
+
+        Atleta atleta = atletaOpt.get();
+        Evento evento = eventoOpt.get();
+
+        AtletaEvento atletaEvento = atletaEventoRepository.findByAtletaAndEvento(atleta, evento);
+        ParticipacionConverter converter = new ParticipacionConverter();
+        Map<String, Object> participacionMap = converter.convertToEntityAttribute(participacion);
+        atletaEvento.setParticipacion(participacionMap);
+        atletaEventoRepository.save(atletaEvento);
+        return new ResponseEntity<>(participacionMap, HttpStatus.OK);
     }
 
     @GetMapping("/eventos/{atletaId}")

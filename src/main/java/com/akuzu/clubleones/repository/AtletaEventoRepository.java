@@ -11,4 +11,5 @@ public interface AtletaEventoRepository extends JpaRepository<AtletaEvento, Inte
     List<AtletaEvento> findByAtleta(Atleta atleta);
     List<AtletaEvento> findByEvento(Evento evento);
     boolean existsByAtletaAndEvento(Atleta atleta, Evento evento);
+    AtletaEvento findByAtletaAndEvento(Atleta atleta, Evento evento);
 }
