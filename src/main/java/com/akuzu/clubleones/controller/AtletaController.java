@@ -124,4 +124,27 @@ public class AtletaController {
                 .collect(Collectors.toList());
         return new ResponseEntity<>(eventos, HttpStatus.OK);
     }
+    @DeleteMapping("/{atletaId}/eventos/{eventoId}")
+    public ResponseEntity<Map<String, String>> cancelarInscripcion(@PathVariable Integer atletaId, @PathVariable Integer eventoId) {
+        Optional<Atleta> atletaOpt = atletaService.getAtletaById(atletaId);
+        Optional<Evento> eventoOpt = eventoService.getEventoById(eventoId);
+
+        if (atletaOpt.isEmpty()) {
+            return new ResponseEntity<>(Map.of("error", "Atleta not found"), HttpStatus.NOT_FOUND);
+        }
+        if (eventoOpt.isEmpty()) {
+            return new ResponseEntity<>(Map.of("error", "Evento not found"), HttpStatus.NOT_FOUND);
+        }
+
+        Atleta atleta = atletaOpt.get();
+        Evento evento = eventoOpt.get();
+
+        AtletaEvento atletaEvento = atletaEventoRepository.findByAtletaAndEvento(atleta, evento);
+        if (atletaEvento != null) {
+            atletaEventoRepository.delete(atletaEvento);
+            return new ResponseEntity<>(Map.of("message", "Inscripción cancelada con éxito"), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(Map.of("error", "Inscripción no encontrada"), HttpStatus.NOT_FOUND);
+        }
+    }
 }
